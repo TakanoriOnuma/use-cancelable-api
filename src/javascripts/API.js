@@ -1,6 +1,10 @@
 // CancelableAPIを使用する
 import CancelableAPI from 'cancelable-api';
 
+// storeにcommitする
+import store from './store/';
+import * as mutationTypes from './store/api/mutationTypes';
+
 class API extends CancelableAPI {
   /**
    * API通信をする
@@ -14,11 +18,11 @@ class API extends CancelableAPI {
    */
   request(requestOptions) {
     return super.request(requestOptions, {
-      // コールバックを定義できる
-      // onRequestStart: () => { console.log('request start'); },
-      // onSuccess: () => { console.log('request success'); },
-      // onFailure: () => { console.log('request failure'); },
-      // onCancel: () => { console.log('request cancel'); },
+      // 各イベントをフックする
+      onRequestStart: ({ method, url }) => { store.commit(mutationTypes.REQUESTING, { method, url }); },
+      onSuccess: ({ method, url }) => { store.commit(mutationTypes.SUCCESS, { method, url }); },
+      onFailure: ({ method, url }) => { store.commit(mutationTypes.FAILURE, { method, url }); },
+      onCancel: ({ method, url }) => { store.commit(mutationTypes.CANCEL, { method, url }); },
       // onRequestEnd: () => { console.log('request end'); }
     });
   }

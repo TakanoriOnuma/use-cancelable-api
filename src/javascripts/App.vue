@@ -4,7 +4,7 @@ div
   hr
   RequestArea(name="API2")
   hr
-  p リクエスト中のAPI数:
+  p リクエスト中のAPI数: {{ $store.state.api.requestingNum }}
   button(@click="onCancelAllButtonClick") cancel all API
 </template>
 
