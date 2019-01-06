@@ -1,10 +1,28 @@
 <template lang="pug">
 div
-  p hello world!
+  RequestArea(name="API1")
+  hr
+  RequestArea(name="API2")
+  hr
+  p リクエスト中のAPI数:
+  button(@click="onCancelAllButtonClick") cancel all API
 </template>
 
 <script>
-export default {
+import RequestArea from './components/RequestArea.vue';
+import CancelableAPI from 'cancelable-api';
 
+export default {
+  components: {
+    RequestArea
+  },
+  methods: {
+    /**
+     * 全APIをキャンセルするボタンをクリックした時
+     */
+    onCancelAllButtonClick() {
+      CancelableAPI.cancelAll();
+    }
+  }
 };
 </script>
