@@ -30,7 +30,7 @@ export default {
     };
   },
   methods: {
-    onRequestButtonClick() {
+    async onRequestButtonClick() {
       // pCancelableを受け取る
       // ※.then(...).catch(...)とメソッドチェーンを書いた後に受け取ってはいけない
       const pCancelable = this.api.fetch();
@@ -51,6 +51,14 @@ export default {
           status.label = isCancel ? 'cancel' : 'error';
         });
       // pCancelable.cancel()で通信をキャンセルできる
+
+      // async/await版
+      // try {
+      //   await pCancelable;
+      //   status.label = 'success';
+      // } catch ({ isCancel }) {
+      //   status.label = isCancel ? 'cancel' : 'error';
+      // }
     },
     onCancelAllButtonClick() {
       this.api.cancelAll();
